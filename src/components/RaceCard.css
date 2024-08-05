@@ -1,0 +1,51 @@
+/* src/components/RaceCard.css */
+.race-card {
+    background-color: #f9f9d8;
+    /* Light yellow color for scroll-like background */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 97%;
+    margin: 10px;
+}
+
+.race-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.race-attributes {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.race-attributes li {
+    margin-bottom: 5px;
+}
+
+.table-element {
+    display: table;
+    width: 100%;
+    /* Adjust as needed */
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    /* Adjust as needed */
+}
+
+.table-header {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}

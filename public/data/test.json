@@ -1,0 +1,14 @@
+{
+    "name": "Aragorn",
+    "race": "Human",
+    "characterClass": "Ranger",
+    "level": 5,
+    "abilities": {
+      "Strength": 16,
+      "Dexterity": 14,
+      "Constitution": 15,
+      "Intelligence": 13,
+      "Wisdom": 17,
+      "Charisma": 12
+    }
+  }
