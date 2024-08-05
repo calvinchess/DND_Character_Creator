@@ -6,7 +6,7 @@ import ClassCard from './ClassCard';
 const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-    const [classInfoData, setClassInfoData] = useState(null);
+    const [classInfoData, setClassInfoData] = useState(characterClass);
 
     const [currentClass, setCurrentClass] = useState(characterClass);
 
@@ -23,9 +23,9 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
         fetchData();
     }, []);
 
-    const fetchClassInfoData = async () => {
+    const fetchClassInfoData = async (className) => {
         try {
-            const result = await getClassInfo(currentClass);
+            const result = await getClassInfo(className);
             setClassInfoData(result.class[0]); // Set the fetched data
         } catch (error) {
             console.log(error); // Set the error
@@ -51,12 +51,17 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
 
         setCurrentClass(value);
 
-        fetchClassInfoData();
+        // console.log("calling from change")
+        // fetchClassInfoData(value);
 
         handleChange(e);
     }
 
-    fetchClassInfoData();
+    useEffect(() => {
+        if (characterClass) {
+            fetchClassInfoData(characterClass);
+        }
+    }, [characterClass]);
 
 
 
