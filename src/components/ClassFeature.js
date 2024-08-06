@@ -1,5 +1,6 @@
 import React from 'react';
 import './ClassFeature.css'; // Import CSS file for styling
+import { parseReferences } from '../HelperFunctions';
 
 const ClassFeature = ({ classFeature, classData }) => {
     if (!classFeature) {
@@ -12,7 +13,7 @@ const ClassFeature = ({ classFeature, classData }) => {
         try {
 
             if (typeof entry === "string") {
-                return <p>{entry}</p>;
+                return <p>{parseReferences(entry)}</p>;
             } else if (entry.type === "entries") {
                 return (
                     <div>
@@ -82,14 +83,14 @@ const ClassFeature = ({ classFeature, classData }) => {
                         <table className="table-element">
                             <span className="table-row">
                                 {entry.colLabels.map((label) => {
-                                    return <span className="table-cell">{label}</span>
+                                    return <span className="table-cell">{parseReferences(label)}</span>
                                 })}
                             </span>
                             {entry.rows.map((row) => {
                                 return (
                                     <span className="table-row">
                                         {row.map((cellText) => {
-                                            return <span className="table-cell">{cellText}</span>
+                                            return <span className="table-cell">{parseReferences(cellText)}</span>
                                         })}
                                     </span>
                                 )

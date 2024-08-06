@@ -59,3 +59,25 @@ export async function getClassInfo(className) {
 
     return classInfos[className];
 }
+
+export function parseReferences(text) {
+    let openBrackets = [];
+    for (let i = 0; i < text.length; i++) {
+        if (text.charAt(i) == '{') {
+            openBrackets.push(i);
+        }
+        else if (text.charAt(i) == '}' && openBrackets.length > 0) {
+            let replacedText = text.substring(openBrackets[openBrackets.length - 1] + 1, i);
+            if (replacedText.length > 0 && replacedText.charAt(0) == '@') {
+                replacedText = replacedText.split('|')[0].substring(replacedText.indexOf(' ') + 1);
+            }
+            console.log("Replacement text: " + replacedText);
+
+
+            text = text.substring(0, openBrackets[openBrackets.length - 1]) + replacedText + text.substring(i + 1);
+            i = openBrackets.pop();
+        }
+    }
+
+    return text;
+}
