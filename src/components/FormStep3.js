@@ -9,6 +9,7 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
     const [classInfoData, setClassInfoData] = useState(characterClass);
 
     const [currentClass, setCurrentClass] = useState(characterClass);
+    const [currentSubclass, setCurrentSubclass] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,13 +27,14 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
     const fetchClassInfoData = async (className) => {
         try {
             const result = await getClassInfo(className);
-            setClassInfoData(result.class[0]); // Set the fetched data
+            setClassInfoData(result); // Set the fetched data
         } catch (error) {
             console.log(error); // Set the error
         }
     };
 
     let classDisplays = [];
+    let subclassDisplays = [];
 
     if (!data) {
         console.log("ERROR GETTING DATA");
@@ -42,6 +44,9 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
         // console.log(classes);
         for (var index in classes) {
             classDisplays.push(classes[index].substring(0, 1).toUpperCase() + classes[index].substring(1));
+        }
+        for (var index in classInfoData.subclass) {
+            subclassDisplays.push(classInfoData.subclass[index].name);
         }
     }
 
@@ -55,6 +60,15 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
         // fetchClassInfoData(value);
 
         handleChange(e);
+    }
+
+    const changeSubclass = (e) => {
+        const { name, value } = e.target;
+
+        setCurrentSubclass(value);
+
+        // console.log("calling from change")
+        // fetchClassInfoData(value);
     }
 
     useEffect(() => {
@@ -78,14 +92,33 @@ const FormStep3 = ({ characterClass, handleChange, prevStep }) => {
             >
                 <option value="">Select a Class</option>
                 {classDisplays.map((classOption) => (
-                    <option key={classOption} value={classOption}>
+                    <option value={classOption}>
                         {classOption}
                     </option>
                 ))}
             </select>
+            {characterClass != "" &&
+                <div>
+                    <br></br>
+                    <label htmlFor="subclass">Subclass:</label>
+                    <select
+                        id="subclass"
+                        name="characterSubclass"
+                        value={currentSubclass}
+                        onChange={changeSubclass}
+                    >
+                        <option value="">Select a Subclass</option>
+                        {subclassDisplays.map((subclassOption) => (
+                            <option value={subclassOption}>
+                                {subclassOption}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            }
             <button onClick={prevStep}>Back</button>
             {characterClass != "" &&
-                <ClassCard className={currentClass} classData={classInfoData} />
+                <ClassCard className={currentClass} subclassName={currentSubclass} classData={classInfoData} />
             }
         </div>
     );
